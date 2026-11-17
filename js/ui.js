@@ -127,12 +127,12 @@ import { getData } from "../services/api.js";
                 afficherChaines(favoris)
             });
 
-            // btnBlacklisted.addEventListener("click", async ()=>{
-            //     const data = await getData();
-            //     console.log(data)
-            //     const block = data.filter(function(chaine){
-            //         return chaine.isBlacklisted ===true;
-            //     });
-            //     console.log(block)
-            //     afficherChaines(block)
-            // })
+            btnBlacklisted.addEventListener("click", async ()=>{
+                const data = await getData();
+                console.log(data)
+                const block = data.filter(function(chaine){
+                    return chaine.isBlacklisted ===true;
+                });
+                console.log(block)
+                afficherChaines(block)
+            })
