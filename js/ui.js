@@ -26,20 +26,20 @@ export function afficherChaines(chaines, codePays){
     
     liste.innerHTML =html;
   
-    liste.addEventListener("click", function(e){
-        const coeur= e.target.closest(".favorite");
-        const oeil= e.target.closest(".blocked");
-        if (coeur){
-            let icon = coeur.querySelector("i");
-            icon.classList.toggle("fa-solid");
-            icon.classList.toggle("fa-regular");
-        }
-        if(oeil){
-            let iconeye=oeil.querySelector("i");
-            iconeye.classList.toggle("fa-solid");
-            iconeye.classList.toggle("fa-regular");
-        }
-    });
+    // liste.addEventListener("click", function(e){
+    //     const coeur= e.target.closest(".favorite");
+    //     const oeil= e.target.closest(".blocked");
+    //     if (coeur){
+    //         let icon = coeur.querySelector("i");
+    //         icon.classList.toggle("fa-solid");
+    //         icon.classList.toggle("fa-regular");
+    //     }
+    //     if(oeil){
+    //         let iconeye=oeil.querySelector("i");
+    //         iconeye.classList.toggle("fa-solid");
+    //         iconeye.classList.toggle("fa-regular");
+    //     }
+    // });
 
     const previewImage=document.getElementById("preview-image");
     const channelProgram=document.getElementById("channel-program");
