@@ -1,7 +1,14 @@
-export function afficherChaines(chaines, codePays){
+import { updateIsFavorite, updateIsBlacklisted } from "../services/api.js";
+import { getData } from "../services/api.js";
+
     const liste=document.getElementById("channels-list");
+    let chainesPays=[];
+    let hlsElement=null;
+   
+    export function afficherChaines(chaines, codePays){
+
     //filtrer chaine click
-    let chainesPays=chaines;
+    chainesPays=chaines;
     if (codePays){
         chainesPays = chaines.filter(function(chaine){
         return chaine.countryCode === codePays;
@@ -23,23 +30,13 @@ export function afficherChaines(chaines, codePays){
         </div>
         `;
     });
+        liste.innerHTML = html;
+    if (chainesPays.length > 0) {
+        showChannelInfo(chainesPays[0]);
+    }
+}
     
-    liste.innerHTML =html;
   
-    liste.addEventListener("click", function(e){
-        const coeur= e.target.closest(".favorite");
-        const oeil= e.target.closest(".blocked");
-        if (coeur){
-            let icon = coeur.querySelector("i");
-            icon.classList.toggle("fa-solid");
-            icon.classList.toggle("fa-regular");
-        }
-        if(oeil){
-            let iconeye=oeil.querySelector("i");
-            iconeye.classList.toggle("fa-solid");
-            iconeye.classList.toggle("fa-regular");
-        }
-    });
 
     const previewImage=document.getElementById("preview-image");
     const channelProgram=document.getElementById("channel-program");
@@ -54,20 +51,18 @@ export function afficherChaines(chaines, codePays){
 
 
     function showChannelInfo(chaine){
-        // document.addEventListener("click", (e)=>{
-        //     if(e.target.closest(".channel")){
-        //         const id=e.target.closest(".channel").dataset.id;
-        //         const filtered= data.find(chaine=> chaine.id == id);
-                // previewImage.src = chaine.previewImage;
-                // previewImage.alt = chaine.name;
+        
                 channelStream.src = chaine.streamUrl;
                 console.log(chaine.streamUrl);
-             
-                let hlsElement = new Hls();
+                
+                if(hlsElement){
+                    hlsElement.destroy(); //arrête la chaîne précédente
+                }
+                    hlsElement = new Hls();
                     hlsElement.loadSource(chaine.streamUrl);
                     hlsElement.attachMedia(channelStream);
                     hlsElement.on(Hls.Events.MANIFEST_PARSED, () => {
-                    channelStream.play();
+                        channelStream.play();
                 });
 
                 channelName.textContent =chaine.name;
@@ -79,19 +74,65 @@ export function afficherChaines(chaines, codePays){
                 channelTime.textContent = chaine.epg.startTime + " -> " +chaine.epg.endTime; 
                 channelProgress.textContent = chaine.epg.progressPercentage + "%";
             }
-                
-                if (chainesPays.length > 0) {
-                    showChannelInfo(chainesPays[0]);
+
+
+
+
+        liste.addEventListener("click", function(e){
+            
+            const bloc = e.target.closest(".channel");
+            //e.target représente l'élément exact sur lequel tu as cliqué
+            //closest(".channel") remonte dans les éléments parents pour retrouver la carte de la chaîne.
+            if (!bloc) return;
+
+            // Quelle chaîne la position dans la liste
+            const index  = Array.from(liste.children).indexOf(bloc);
+            const chaine = chainesPays[index];
+
+
+            const coeur= e.target.closest(".favorite");
+            const oeil= e.target.closest(".blocked");
+                if (coeur){
+                    let icon = coeur.querySelector("i");
+                    icon.classList.toggle("fa-solid");
+                    icon.classList.toggle("fa-regular");
+                    chaine.isFavorite = !chaine.isFavorite;
+                    updateIsFavorite(chaine.id, chaine.isFavorite);
+                    return;
+                    //On transmet deux informations :
+                    // - chaine.id : quelle chaîne modifier ?
+                    // - chaine.isFavorite : quelle valeur enregistrer ?
                 }
+                if(oeil){
+                    let iconeye=oeil.querySelector("i");
+                    iconeye.classList.toggle("fa-solid");
+                    iconeye.classList.toggle("fa-regular");
+                    chaine.isBlacklisted =  !chaine.isBlacklisted;
+                    updateIsBlacklisted(chaine.id, chaine.isBlacklisted);
+                    return;
+                }
+                showChannelInfo(chaine);
+            });
 
-                const boutons = liste.querySelectorAll(".channel");
 
-                boutons.forEach(function (bouton, index) {
-                    bouton.addEventListener("click", function () {
-                        showChannelInfo(chainesPays[index]);
-                        // console.log(index, chainesPays[index].name);
-        });
-    });
-}
+            let btnFavorite = document.getElementById("btnFavorite");
+            let btnBlacklisted = document.getElementById("btnBlacklisted");
 
+            btnFavorite.addEventListener("click", async()=>{
+                const datas = await getData();
+                console.log(datas);
+                const favoris=datas.filter(function(chaine){
+                    return chaine.isFavorite === true;
+                });
+                afficherChaines(favoris)
+            });
 
+            btnBlacklisted.addEventListener("click", async ()=>{
+                const data = await getData();
+                console.log(data)
+                const block = data.filter(function(chaine){
+                    return chaine.isBlacklisted ===true;
+                });
+                console.log(block)
+                afficherChaines(block)
+            })

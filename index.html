@@ -42,6 +42,53 @@
                     <p class="mt-1 text-sm text-slate-600">Sélectionnez un pays pour afficher ses chaînes.</p>
                 </div>
 
+                <div class="flex space-y-2 py-5 gap-3">
+                <div class="">
+                    
+                    <button id="btnFavorite" type="button" class=" flex h-16 w-full items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-3 text-left transition hover:border-indigo-400/20 hover:bg-white/[.06]">
+                        
+                        <span class="grid h-10 px-2 place-items-center rounded-lg  bg-gradient-to-br from-red-600 text-xs font-bold text-white">
+                            <i class="fa-solid fa-heart" style="color: rgb(15, 16, 19);"></i>
+                        </span>
+                        
+                        <span class="min-w-0 flex-1">
+                            <span class="block text-sm font-semibold text-slate-200">Chaines favorites</span>
+                        </span>
+
+
+                        <svg class="h-4 w-4 text-slate-500 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+
+
+                    </button>
+                </div>
+
+                <div class="">
+                    
+                    <button id="btnBlacklisted" type="button" class=" flex h-16 w-full items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-3 text-left transition hover:border-indigo-400/20 hover:bg-white/[.06]">
+                        
+                        <span class="grid h-10 px-2 place-items-center rounded-lg  bg-gradient-to-br from-red-100 text-xs font-bold text-white">
+                            <i class="fa-solid fa-eye-slash" style="color: rgb(255, 255, 255);"></i>
+                        </span>
+                        
+                        <span class="min-w-0 flex-1">
+                            <span class="block text-sm font-semibold text-slate-200">Chaines blockées</span>
+                        </span>
+
+
+                        <svg class="h-4 w-4 text-slate-500 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+
+
+                    </button>
+                </div>
+                </div>
+
+
+
+
                 <div class="flex space-y-2 py-5">
                     
                     <button type="button" data-country="MA" class="btn-pays flex h-16 w-full items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-3 text-left transition hover:border-indigo-400/20 hover:bg-white/[.06]">
