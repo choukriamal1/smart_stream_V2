@@ -29,7 +29,8 @@ async function getData (){
                 throw new Error(`HTTP Error : ${res.status}`)
             }
             const data= await res.json()
-            console.log(res)
+            // console.log(res)
+            console.log(data)
             return data
         }
         catch (error){
@@ -53,4 +54,22 @@ async function getData (){
     console.log("Done");
 }
 
-export {getData, updatechannels};
+    async function updateIsFavorite(id, value){
+                await fetch (`${dataApi}/${id}`,{
+                    method: "PUT",
+                    headers:{"Content-Type": "application/json"},
+                    body: JSON.stringify({ isFavorite: value}),
+                });
+        console.log("Done favorite");
+    }
+
+    async function updateIsBlacklisted(id, value){
+            await fetch (`${dataApi}/${id}`,{
+                method: "PUT",
+                headers:{"Content-Type": "application/json"},
+                body: JSON.stringify({isBlacklisted: value}),
+            });
+        console.log("Done Blacklisted");
+}
+
+export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted};

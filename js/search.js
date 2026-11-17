@@ -4,18 +4,17 @@
 //     chaine.name.toLowerCase().includes(search));
 // };
 // produits.forEach((produit, index)=>{
+       // let filtered = [];
+        // console.log(filtered)
 
-import { afficherChaines } from "./ui.js";
 
 // })
 
-
+import { afficherChaines } from "./ui.js";
 
 export function searchChannels(channels){
     const search = document.querySelector("#search");
-    // let filtered = [];
-        // console.log(filtered)
-
+ 
 
         search.addEventListener("input", function (e) {
           
@@ -28,6 +27,6 @@ export function searchChannels(channels){
     });
 }
 
-  
+ 
 
-  
+ 

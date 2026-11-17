@@ -26,20 +26,20 @@ export function afficherChaines(chaines, codePays){
     
     liste.innerHTML =html;
   
-    // liste.addEventListener("click", function(e){
-    //     const coeur= e.target.closest(".favorite");
-    //     const oeil= e.target.closest(".blocked");
-    //     if (coeur){
-    //         let icon = coeur.querySelector("i");
-    //         icon.classList.toggle("fa-solid");
-    //         icon.classList.toggle("fa-regular");
-    //     }
-    //     if(oeil){
-    //         let iconeye=oeil.querySelector("i");
-    //         iconeye.classList.toggle("fa-solid");
-    //         iconeye.classList.toggle("fa-regular");
-    //     }
-    // });
+    liste.addEventListener("click", function(e){
+        const coeur= e.target.closest(".favorite");
+        const oeil= e.target.closest(".blocked");
+        if (coeur){
+            let icon = coeur.querySelector("i");
+            icon.classList.toggle("fa-solid");
+            icon.classList.toggle("fa-regular");
+        }
+        if(oeil){
+            let iconeye=oeil.querySelector("i");
+            iconeye.classList.toggle("fa-solid");
+            iconeye.classList.toggle("fa-regular");
+        }
+    });
 
     const previewImage=document.getElementById("preview-image");
     const channelProgram=document.getElementById("channel-program");
@@ -61,6 +61,14 @@ export function afficherChaines(chaines, codePays){
                 // previewImage.src = chaine.previewImage;
                 // previewImage.alt = chaine.name;
                 channelStream.src = chaine.streamUrl;
+                console.log(chaine.streamUrl);
+             
+                let hlsElement = new Hls();
+                    hlsElement.loadSource(chaine.streamUrl);
+                    hlsElement.attachMedia(channelStream);
+                    hlsElement.on(Hls.Events.MANIFEST_PARSED, () => {
+                    channelStream.play();
+                });
 
                 channelName.textContent =chaine.name;
                 channelCountry.textContent = chaine.countryCode;
@@ -81,7 +89,7 @@ export function afficherChaines(chaines, codePays){
                 boutons.forEach(function (bouton, index) {
                     bouton.addEventListener("click", function () {
                         showChannelInfo(chainesPays[index]);
-                        console.log(index, chainesPays[index].name);
+                        // console.log(index, chainesPays[index].name);
         });
     });
 }
