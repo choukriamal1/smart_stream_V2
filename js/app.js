@@ -1,4 +1,5 @@
-import {getData} from "../services/api.js";
+import {getData, updatechannels} from "../services/api.js";
+
 // import { getChannelsJSON } from "../services/api.js";
 // import {recherche} from "./search.js";
 
@@ -30,7 +31,6 @@ async function init() {
 
 
 document.getElementById("retry").addEventListener("click", init);
-
 
 
 

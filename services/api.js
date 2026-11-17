@@ -15,7 +15,7 @@ let loading=document.getElementById("loading");
 let error = document.getElementById("error");
 
 const dataApi ="https://6af43b2c55a1de7dcf03be12.mockapi.io/api/v1/iptv"
-    export async function getData (){
+async function getData (){
         try{
             loading.classList.remove("hidden");
             loading.classList.add("flex");
@@ -24,20 +24,52 @@ const dataApi ="https://6af43b2c55a1de7dcf03be12.mockapi.io/api/v1/iptv"
             if(res.status >= 500){
                 error.classList.remove("hidden");
                 error.classList.add("flex");
-                
             }
             if(!res.ok){
                 throw new Error(`HTTP Error : ${res.status}`)
             }
             const data= await res.json()
-            console.log(res)
+            // console.log(res)
+            console.log(data)
             return data
         }
         catch (error){
-            console.error ("Filled to fetch channels : ", error)
+            console.error ("Failed to fetch channels : ", error)
         }
         finally{
             loading.classList.add("hidden");
             loading.classList.remove("flex");
         }
     }
+    async function updatechannels(){
+        const res = await fetch(dataApi)
+        const channels= await res.json()
+        for(let chaine of channels){
+            await fetch (`${dataApi}/${chaine.id}`,{
+                method: "PUT",
+                headers:{"Content-Type": "application/json"},
+                body: JSON.stringify({ isFavorite: false, isBlacklisted: false}),
+            });
+        }
+    console.log("Done");
+}
+
+    async function updateIsFavorite(id, value){
+                await fetch (`${dataApi}/${id}`,{
+                    method: "PUT",
+                    headers:{"Content-Type": "application/json"},
+                    body: JSON.stringify({ isFavorite: value}),
+                });
+        console.log("Done favorite");
+    }
+
+    async function updateIsBlacklisted(id, value){
+            await fetch (`${dataApi}/${id}`,{
+                method: "PUT",
+                headers:{"Content-Type": "application/json"},
+                body: JSON.stringify({isBlacklisted: value}),
+            });
+        console.log("Done Blacklisted");
+}
+
+export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted};

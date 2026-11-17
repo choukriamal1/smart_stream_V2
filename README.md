@@ -813,3 +813,5 @@ PATCH – Modifier une partie des données
 
 DELETE – Supprimer des données
  DELETE sert à supprimer une ressource.
+
+closest ->>> parent   3ks query selector li kay9lb mn lfo9 lt7t 3la children 
