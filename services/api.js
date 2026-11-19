@@ -1,18 +1,7 @@
-// export  function getChannelsJSON () {
-//     return fetch("https://iptv-org.github.io/api/streams.json")
-//     .then (response => {
-//         return response.json();
-//     })
-//     .then (data =>{
-//         return data
-//     })
-//     .catch(error =>{
-//         console.log("Error", error)
-//     });
-// }
 
 let loading=document.getElementById("loading");
 let error = document.getElementById("error");
+// let  channels = [];
 
 const dataApi ="https://6af43b2c55a1de7dcf03be12.mockapi.io/api/v1/iptv"
 async function getData (){
@@ -29,9 +18,15 @@ async function getData (){
                 throw new Error(`HTTP Error : ${res.status}`)
             }
             const data= await res.json()
-            // console.log(res)
             console.log(data)
-            return data
+            return data ;
+            // console.log(res)
+            
+            // channels =data ;
+            // console.log(channels);
+            
+            // localStorage.setItem("channels" , JSON.stringify(channels))
+            //  return data
         }
         catch (error){
             console.error ("Failed to fetch channels : ", error)

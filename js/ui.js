@@ -11,7 +11,7 @@ import { getData } from "../services/api.js";
     chainesPays=chaines;
     if (codePays){
         chainesPays = chaines.filter(function(chaine){
-        return chaine.countryCode === codePays;
+        return chaine.countryCode === codePays && chaine.isBlacklisted === false ;
     });
 }
     //creer les liste du chaines
@@ -66,13 +66,13 @@ import { getData } from "../services/api.js";
                 });
 
                 channelName.textContent =chaine.name;
-                channelCountry.textContent = chaine.countryCode;
-                chaineNumber.textContent = chaine.channelNumber;
+                channelCountry.textContent = "chaine countryCode: " + chaine.countryCode;
+                chaineNumber.textContent = "Channel Number: " + chaine.channelNumber;
                 channelCategory.textContent = chaine.category;
 
                 channelProgram.textContent = chaine.epg.currentProgram;
-                channelTime.textContent = chaine.epg.startTime + " -> " +chaine.epg.endTime; 
-                channelProgress.textContent = chaine.epg.progressPercentage + "%";
+                channelTime.textContent = "Chaine time: " + chaine.epg.startTime + " -> " +chaine.epg.endTime; 
+                channelProgress.textContent = "chaine progress : " + chaine.epg.progressPercentage + "%";
             }
 
 
@@ -122,6 +122,7 @@ import { getData } from "../services/api.js";
                 const datas = await getData();
                 console.log(datas);
                 const favoris=datas.filter(function(chaine){
+        
                     return chaine.isFavorite === true;
                 });
                 afficherChaines(favoris)
@@ -133,6 +134,6 @@ import { getData } from "../services/api.js";
                 const block = data.filter(function(chaine){
                     return chaine.isBlacklisted ===true;
                 });
-                console.log(block)
+                console.log("block: ", block)
                 afficherChaines(block)
             })
