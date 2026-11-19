@@ -174,7 +174,7 @@
                         <span class="grid h-10 px-3 place-items-center rounded-lg  bg-gradient-to-br from-green-300 text-xs font-bold text-white"> + </span>
                         
                         <span class="min-w-0 flex-1">
-                            <span id="openModal" class="block text-sm font-semibold text-slate-200">Ajouter Chaine</span>
+                            <span class="block text-sm font-semibold text-slate-200">Ajouter Chaine</span>
                         </span>
 
                         <svg class="h-4 w-4 text-slate-500 transition " fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -184,7 +184,7 @@
 
 
 
-                    <div id="modal" class="fixed flex inset-0 z-50  justify-center items-center bg-slate-950/50 p-4">
+                    <div id="modal" class="hidden fixed  inset-0 z-50  justify-center items-center bg-slate-950/50 p-4">
                         
                         
                         <form class="flex flex-col justify-center bg-slate-900 border border-blue-950 h-[550px] w-[450px] rounded-md gap-4 px-10">
@@ -229,17 +229,13 @@
                                 <input id="inputLogo" class="w-full rounded-xl border border-white/10 bg-slate-800 px-4 py-3 text-sm text-slate-200 placeholder-slate-500 outline-none" placeholder= "Logo">
                             </div>
 
-                            <!-- <div class="flex flow-row gap-3 py-4">
+                            <div class="flex gap-3 py-4">
 
                                 <button id="ajoutModal" class="w-full rounded-xl border border-white/10 bg-slate-800 px-4 py-3 text-sm text-slate-200 placeholder-slate-500 outline-none" >
-                                    <span>
                                         <span class="block text-sm font-semibold text-slate-200 cursor-pointer">Cancel</span>
-                                    </span>
-                                </button> -->
-                                <button id="cancelModal" class="w-full rounded-xl border border-white/10 bg-green-200/50 px-4 py-3 text-sm text-slate-200 placeholder-slate-500 outline-none" >
-                                    <span>
-                                        <span class="block text-sm font-semibold text-slate-200 cursor-pointer">Ajouter</span>
-                                    </span>
+                                </button>
+                                <button id="cancelModal" type="button" class="w-full rounded-xl border border-white/10 bg-green-200/50 px-4 py-3 text-sm text-slate-200 placeholder-slate-500 outline-none" >
+                                    <span class="block text-sm font-semibold text-slate-200 cursor-pointer">Ajouter</span>
                                 </button>
                             </div>
 
@@ -251,7 +247,7 @@
 
 
             </button>
-        </div>
+        
 
 
 

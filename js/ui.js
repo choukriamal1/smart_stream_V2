@@ -1,4 +1,4 @@
-import { updateIsFavorite, updateIsBlacklisted, deleteChaine } from "../services/api.js";
+import { updateIsFavorite, updateIsBlacklisted} from "../services/api.js";
 import { getData } from "../services/api.js";
 
     const liste=document.getElementById("channels-list");

@@ -76,6 +76,6 @@ async function getData (){
     //         body: JSON.stringify({chaine}),
     //         });
     // }
-    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, deleteChaine};
+    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted};
 
 

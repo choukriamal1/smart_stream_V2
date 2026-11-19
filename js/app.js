@@ -1,4 +1,5 @@
 import {getData, updatechannels} from "../services/api.js";
+import "./add.js";
 
 // import { getChannelsJSON } from "../services/api.js";
 // import {recherche} from "./search.js";
