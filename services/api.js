@@ -69,13 +69,13 @@ async function getData (){
 
     
 
-    async function deleteChaine(chaine){
-        await fetch (`${dataApi}`,{
-            method: "DELETE",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({chaine}),
-            });
-    }
+    // async function deleteChaine(chaine){
+    //     await fetch (`${dataApi}`,{
+    //         method: "DELETE",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify({chaine}),
+    //         });
+    // }
     export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, deleteChaine};
 
 
