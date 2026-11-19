@@ -815,3 +815,12 @@ DELETE – Supprimer des données
  DELETE sert à supprimer une ressource.
 
 closest ->>> parent   3ks query selector li kay9lb mn lfo9 lt7t 3la children 
+
+export Rend la fonction utilisable dans un autre fichier.
+
+les événements qu on a : input , click, change, keydown, submit
+
+filter() est utilisée avec les tableaux : Elle permet de créer un nouveau tableau contenant uniquement les éléments qui respectent une condition.
+
+
+les etapes du recherche ; selectionner le chanmp puis l ecouyte puis recuperer le texte par value puis filtre et includes puis afficher les resultats 
