@@ -1,4 +1,4 @@
-import { updateIsFavorite, updateIsBlacklisted } from "../services/api.js";
+import { updateIsFavorite, updateIsBlacklisted, deleteChaine } from "../services/api.js";
 import { getData } from "../services/api.js";
 
     const liste=document.getElementById("channels-list");
@@ -136,4 +136,11 @@ import { getData } from "../services/api.js";
                 });
                 console.log("block: ", block)
                 afficherChaines(block)
+            // });
+
+            // deleteConfirm.addEventListener("click", async()=>{
+            //     const data = await getData();
+            //     const delete=data.filter(function(chaine){
+            //         return chaine.id === "";
+            //     })
             })
