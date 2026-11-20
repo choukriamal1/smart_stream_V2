@@ -55,6 +55,7 @@ async function getData (){
                     headers:{"Content-Type": "application/json"},
                     body: JSON.stringify({ isFavorite: value}),
                 });
+
         console.log("Done favorite");
     }
 
@@ -69,13 +70,11 @@ async function getData (){
 
     
 
-    // async function deleteChaine(chaine){
-    //     await fetch (`${dataApi}`,{
+    // async function deleteChaine(id){
+    //     await fetch (`$dataApi/${id}`,{
     //         method: "DELETE",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify({chaine}),
     //         });
     // }
-    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted};
+    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted };
 
 
