@@ -1,13 +1,13 @@
-import { updateIsFavorite, updateIsBlacklisted} from "../services/api.js";
+import { updateIsFavorite, updateIsBlacklisted, deleteChaine} from "../services/api.js";
 import { getData } from "../services/api.js";
 
     const liste=document.getElementById("channels-list");
     let chainesPays=[];
     let hlsElement=null;
    
-    export function afficherChaines(chaines, codePays){
+    export function afficherChaines(chaines, codePays, isBlacklisted=false){
 
-    //filtrer chaine click
+    //filtrer chaine click par pays 
     chainesPays=chaines;
     if (codePays){
         chainesPays = chaines.filter(function(chaine){
@@ -27,6 +27,7 @@ import { getData } from "../services/api.js";
         <span class="favorite "><i class="${chaine.isFavorite ? "fa-solid":  "fa-regular"} fa-heart" style="color: rgb(185, 21, 21);"></i></span>
        
         <span class="blocked "><i class="${chaine.isBlacklisted ? "fa-solid": "fa-regular"} fa-eye-slash" style="color: rgb(237, 238, 244);"></i></span>
+        ${isBlacklisted ? `<button type="button" class="btn-delete font-bold texte-xs text-red-950 hover:text-red-200">Supprimer</button>`:""}
         </div>
         `;
     });
@@ -78,7 +79,7 @@ import { getData } from "../services/api.js";
 
 
 
-        liste.addEventListener("click", function(e){
+        liste.addEventListener("click", async function(e){
             
             const bloc = e.target.closest(".channel");
             //e.target représente l'élément exact sur lequel tu as cliqué
@@ -88,6 +89,20 @@ import { getData } from "../services/api.js";
             // Quelle chaîne la position dans la liste
             const index  = Array.from(liste.children).indexOf(bloc);
             const chaine = chainesPays[index];
+            if(!chaine) return;
+
+            const btnDelete = e.target.closest(".btn-delete");
+            if(btnDelete){
+                let ok= confirm(`Vous voulez supprimer la chaine "${chaine.name}"? `);
+                if(!ok) return ;
+
+                await deleteChaine(chaine.id);
+
+                const data=await getData();
+                const block=data.filter((item)=> item.isBlacklisted === true);
+                afficherChaines(block, null, true);
+                return;
+            }
 
 
             const coeur= e.target.closest(".favorite");
@@ -117,8 +132,11 @@ import { getData } from "../services/api.js";
 
             let btnFavorite = document.getElementById("btnFavorite");
             let btnBlacklisted = document.getElementById("btnBlacklisted");
+            let btnAll = document.getElementById("btnAll");
 
+            if(btnFavorite){
             btnFavorite.addEventListener("click", async()=>{
+                localStorage.setItem("lastWatch","favorites");
                 const datas = await getData();
                 console.log(datas);
                 const favoris=datas.filter(function(chaine){
@@ -127,7 +145,16 @@ import { getData } from "../services/api.js";
                 });
                 afficherChaines(favoris)
             });
+        }
+        if (btnAll){
+            btnAll.addEventListener("click", async()=>{
+                localStorage.setItem("lastWatch", "all");
+                const datas = await getData();
+                afficherChaines(datas);
+            });
+        }
 
+            if (btnBlacklisted){
             btnBlacklisted.addEventListener("click", async ()=>{
                 const data = await getData();
                 console.log(data)
@@ -135,12 +162,18 @@ import { getData } from "../services/api.js";
                     return chaine.isBlacklisted ===true;
                 });
                 console.log("block: ", block)
-                afficherChaines(block)
-            // });
+                afficherChaines(block, null, true);
+             });
+            }
 
-            // deleteConfirm.addEventListener("click", async()=>{
-            //     const data = await getData();
-            //     const delete=data.filter(function(chaine){
-            //         return chaine.id === "";
-            //     })
-            })
+            export function sauvegarder(chaines){
+                let mode = localStorage.getItem("lastWatch") || "all";
+
+                if(mode === "favorites"){
+                    let favor = chaines.filter((chaine) => chaine.isFavorite===true);
+                    afficherChaines(favor);
+                } else {
+                    afficherChaines(chaines);
+                }
+
+            }

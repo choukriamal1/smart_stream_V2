@@ -75,11 +75,17 @@ async function getData (){
 
     
 
-    // async function deleteChaine(id){
-    //     await fetch (`${dataApi}/${id}`,{
-    //         method: "DELETE",
-    //         });
-    // }
+    async function deleteChaine(id){
+        const res = await fetch (`${dataApi}/${id}`,{
+            method: "DELETE",
+            });
+        if(!res.ok){
+            throw new Error(`HTTP Error : ${res.status}`)
+        }
+        
+        console.log("delete is done from black list");
+
+    }
 
 
     async function addChannels(newChannel){
@@ -94,6 +100,6 @@ async function getData (){
             }
         }
 
-    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, addChannels };
+    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, addChannels, deleteChaine };
 
 
