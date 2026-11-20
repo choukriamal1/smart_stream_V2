@@ -28,8 +28,11 @@ async function getData (){
             // localStorage.setItem("channels" , JSON.stringify(channels))
             //  return data
         }
-        catch (error){
-            console.error ("Failed to fetch channels : ", error)
+        catch (err){
+            console.error ("Failed to fetch channels : ", err);
+            error.classList.remove("hidden");
+            error.classList.add("flex");
+            return [];
         }
         finally{
             loading.classList.add("hidden");
@@ -47,7 +50,9 @@ async function getData (){
             });
         }
     console.log("Done");
-}
+    }
+    
+
 
     async function updateIsFavorite(id, value){
                 await fetch (`${dataApi}/${id}`,{
@@ -55,6 +60,7 @@ async function getData (){
                     headers:{"Content-Type": "application/json"},
                     body: JSON.stringify({ isFavorite: value}),
                 });
+
         console.log("Done favorite");
     }
 
@@ -69,13 +75,25 @@ async function getData (){
 
     
 
-    async function deleteChaine(chaine){
-        await fetch (`${dataApi}`,{
-            method: "DELETE",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({chaine}),
+    // async function deleteChaine(id){
+    //     await fetch (`${dataApi}/${id}`,{
+    //         method: "DELETE",
+    //         });
+    // }
+
+
+    async function addChannels(newChannel){
+        const res = await fetch(dataApi,{
+                method: "POST",
+                headers: {"Content-Type": "application/json"},  //just avec modifie put
+                body: JSON.stringify(newChannel),
             });
-    }
-    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, deleteChaine};
+
+            if(!res.ok){
+                throw new Error(`HTTP Error : ${res.status}`)
+            }
+        }
+
+    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, addChannels };
 
 

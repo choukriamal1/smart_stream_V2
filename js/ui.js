@@ -1,4 +1,4 @@
-import { updateIsFavorite, updateIsBlacklisted, deleteChaine } from "../services/api.js";
+import { updateIsFavorite, updateIsBlacklisted} from "../services/api.js";
 import { getData } from "../services/api.js";
 
     const liste=document.getElementById("channels-list");
@@ -11,7 +11,7 @@ import { getData } from "../services/api.js";
     chainesPays=chaines;
     if (codePays){
         chainesPays = chaines.filter(function(chaine){
-        return chaine.countryCode === codePays && chaine.isBlacklisted === false ;
+        return chaine.countryCode === codePays && !chaine.isBlacklisted;
     });
 }
     //creer les liste du chaines
