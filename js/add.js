@@ -86,5 +86,4 @@ addBtn.addEventListener("click", async ()=>{
     modalErreur.textContent = "Erreur : la chaîne n'a pas été ajoutée.";
     modalErreur.classList.remove("hidden");
   }
-
 });

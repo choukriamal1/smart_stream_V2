@@ -15,6 +15,7 @@ import "./add.js";
  
 
 import {afficherChaines} from "./ui.js";
+import { sauvegarder } from "./ui.js";
 import {searchChannels}  from"./search.js";
 
 let tabchaines=[];
@@ -23,6 +24,7 @@ async function init() {
         tabchaines = await getData ();
          //attend réponse puis on met le résultat dans tabl
          searchChannels(tabchaines);
+         sauvegarder(tabchaines);
     }
     catch(erreur){
         console.error("Erreur de chargement :" , erreur);
@@ -41,6 +43,7 @@ const boutons = document.querySelectorAll(".btn-pays");
 
 boutons.forEach(function(boutton){
     boutton.addEventListener("click",function (){
+        localStorage.setItem("lastWatch", "all");
         const code=boutton.dataset.country; //MA
         afficherChaines(tabchaines, code);
     });

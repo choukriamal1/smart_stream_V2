@@ -7,7 +7,7 @@ import { getData } from "../services/api.js";
    
     export function afficherChaines(chaines, codePays, isBlacklisted=false){
 
-    //filtrer chaine click
+    //filtrer chaine click par pays 
     chainesPays=chaines;
     if (codePays){
         chainesPays = chaines.filter(function(chaine){
@@ -89,6 +89,7 @@ import { getData } from "../services/api.js";
             // Quelle chaîne la position dans la liste
             const index  = Array.from(liste.children).indexOf(bloc);
             const chaine = chainesPays[index];
+            if(!chaine) return;
 
             const btnDelete = e.target.closest(".btn-delete");
             if(btnDelete){
@@ -131,8 +132,11 @@ import { getData } from "../services/api.js";
 
             let btnFavorite = document.getElementById("btnFavorite");
             let btnBlacklisted = document.getElementById("btnBlacklisted");
+            let btnAll = document.getElementById("btnAll");
 
+            if(btnFavorite){
             btnFavorite.addEventListener("click", async()=>{
+                localStorage.setItem("lastWatch","favorites");
                 const datas = await getData();
                 console.log(datas);
                 const favoris=datas.filter(function(chaine){
@@ -141,7 +145,16 @@ import { getData } from "../services/api.js";
                 });
                 afficherChaines(favoris)
             });
+        }
+        if (btnAll){
+            btnAll.addEventListener("click", async()=>{
+                localStorage.setItem("lastWatch", "all");
+                const datas = await getData();
+                afficherChaines(datas);
+            });
+        }
 
+            if (btnBlacklisted){
             btnBlacklisted.addEventListener("click", async ()=>{
                 const data = await getData();
                 console.log(data)
@@ -151,10 +164,16 @@ import { getData } from "../services/api.js";
                 console.log("block: ", block)
                 afficherChaines(block, null, true);
              });
+            }
 
-            // deleteConfirm.addEventListener("click", async()=>{
-            //     const data = await getData();
-            //     const block =data.filter(function(chaine){
-            //         return chaine.id === "";
-            //     })
-            // });
+            export function sauvegarder(chaines){
+                let mode = localStorage.getItem("lastWatch") || "all";
+
+                if(mode === "favorites"){
+                    let favor = chaines.filter((chaine) => chaine.isFavorite===true);
+                    afficherChaines(favor);
+                } else {
+                    afficherChaines(chaines);
+                }
+
+            }
