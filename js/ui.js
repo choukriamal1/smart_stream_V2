@@ -11,7 +11,7 @@ import { getData } from "../services/api.js";
     chainesPays=chaines;
     if (codePays){
         chainesPays = chaines.filter(function(chaine){
-        return chaine.countryCode === codePays && chaine.isBlacklisted === false ;
+        return chaine.countryCode === codePays && !chaine.isBlacklisted;
     });
 }
     //creer les liste du chaines

@@ -28,8 +28,11 @@ async function getData (){
             // localStorage.setItem("channels" , JSON.stringify(channels))
             //  return data
         }
-        catch (error){
-            console.error ("Failed to fetch channels : ", error)
+        catch (err){
+            console.error ("Failed to fetch channels : ", err);
+            error.classList.remove("hidden");
+            error.classList.add("flex");
+            return [];
         }
         finally{
             loading.classList.add("hidden");
@@ -47,7 +50,9 @@ async function getData (){
             });
         }
     console.log("Done");
-}
+    }
+    
+
 
     async function updateIsFavorite(id, value){
                 await fetch (`${dataApi}/${id}`,{
@@ -75,6 +80,20 @@ async function getData (){
     //         method: "DELETE",
     //         });
     // }
-    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted };
+
+
+    async function addChannels(newChannel){
+        const res = await fetch(dataApi,{
+                method: "POST",
+                headers: {"Content-Type": "application/json"},  //je t’envoie du JSON
+                body: JSON.stringify(newChannel),
+            });
+
+            if(!res.ok){
+                throw new Error(`HTTP Error : ${res.status}`)
+            }
+        }
+
+    export {getData, updatechannels, updateIsFavorite, updateIsBlacklisted, addChannels };
 
 
