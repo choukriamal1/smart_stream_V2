@@ -34,9 +34,6 @@ async function init() {
 document.getElementById("retry").addEventListener("click", init);
 
 
-
-
-
 //btn
 
 const boutons = document.querySelectorAll(".btn-pays");

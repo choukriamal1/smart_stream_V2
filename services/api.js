@@ -76,7 +76,7 @@ async function getData (){
     
 
     // async function deleteChaine(id){
-    //     await fetch (`$dataApi/${id}`,{
+    //     await fetch (`${dataApi}/${id}`,{
     //         method: "DELETE",
     //         });
     // }
@@ -85,7 +85,7 @@ async function getData (){
     async function addChannels(newChannel){
         const res = await fetch(dataApi,{
                 method: "POST",
-                headers: {"Content-Type": "application/json"},  //je t’envoie du JSON
+                headers: {"Content-Type": "application/json"},  //just avec modifie put
                 body: JSON.stringify(newChannel),
             });
 

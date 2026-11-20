@@ -20,12 +20,13 @@ function  closeModal (){
     modal.classList.add("hidden");
     modalErreur.classList.add("hidden");
 
-    document.getElementById("inputNumber").value ="";
-    document.getElementById("inputName").value ="";
-    document.getElementById("inputLogo").value ="";
+    modal.querySelector("#formModal").reset();
+    // reset do the same work
+    //document.getElementById("inputName").value ="";
+    // document.getElementById("inputLogo").value ="";
 
-    document.getElementById("inputCategory").value ="";
-    document.getElementById("inputCountry").value ="";
+    // document.getElementById("inputCategory").value ="";
+    // document.getElementById("inputCountry").value ="";
 }
 
 
@@ -33,8 +34,15 @@ closeBtn.addEventListener("click", closeModal);
 
 addBtn.addEventListener("click", async ()=>{
     let number= document.getElementById("inputNumber").value.trim();
+    let regexNumber= /^\d{1,4}$/; 
+
     let nameChannel= document.getElementById("inputName").value.trim();
+    let regexNom = /^[A-Za-z0-9 .-_]{3,30}$/;
+   
+
     let logoCh= document.getElementById("inputLogo").value.trim();
+    let regexLogo = /^https?:\/\//;
+   
 
     let categoryCh= document.getElementById("inputCategory").value;
     let country= document.getElementById("inputCountry").value;
@@ -53,7 +61,7 @@ addBtn.addEventListener("click", async ()=>{
     name: nameChannel,
     category: categoryCh,
     logo: logoCh || "https://placehold.co/60x60?text=" + encodeURIComponent(nameChannel),
-    previewImage: "https://placehold.co/800x450?text=" + encodeURIComponent(nameChannel),
+    previewImg: "https://placehold.co/800x450?text=" + encodeURIComponent(nameChannel),
     streamUrl: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     isLive: true,
     isFavorite: false,

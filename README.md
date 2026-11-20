@@ -824,3 +824,5 @@ filter() est utilisée avec les tableaux : Elle permet de créer un nouveau tabl
 
 
 les etapes du recherche ; selectionner le chanmp puis l ecouyte puis recuperer le texte par value puis filtre et includes puis afficher les resultats 
+
+reset()
